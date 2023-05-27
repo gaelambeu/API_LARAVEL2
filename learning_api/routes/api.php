@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Crée un lien qui permettra aux clients : React, Vue, Angular, Node, Js Native
+// Récupérer la liste des posts
 Route::get('posts', [PostController::class, 'index']);
+
+//  Ajouter un post(ajout)
+Route::post('posts/create', [PostController::class, 'store']);
+
 
 
 
