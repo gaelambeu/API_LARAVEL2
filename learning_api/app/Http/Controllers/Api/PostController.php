@@ -15,7 +15,7 @@ class PostController extends Controller
    public function store(){
 
         $post = new Post();
-        $post->title = 'Titre exemple';
+        $post->titre = 'Titre exemple';
         $post->description = 'Description exemple';
         $post->save();
    }
