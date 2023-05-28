@@ -20,6 +20,12 @@ class PostController extends Controller
         $post->titre = $request->titre;
         $post->description = $request->description;
         $post->save();
+
+        return response() -> json([
+            'status_code' => 200,
+            'status_message' => 'Le post a été ajouté',
+            'date' => $post
+        ]);
    }
 }
 
