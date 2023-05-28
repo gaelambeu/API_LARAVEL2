@@ -20,7 +20,7 @@ Route::get('posts', [PostController::class, 'index']);
 
 //  Ajouter un post(ajout)
 Route::post('posts/create', [PostController::class, 'store']);
-Route::put('posts/edit/{id}', [PostController::class, 'update']);
+Route::put('posts/edit/{post}', [PostController::class, 'update']);
 
 
 
