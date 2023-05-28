@@ -12,7 +12,17 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
    public function index(){
-    return 'Liste des articles';
+    try{
+
+        return response()->json([
+            'status_code' => 200,
+            'status_message' => 'Le posts ont été récupérés.',
+            'data' => Post::all()
+        ]);
+
+    } catch(Exception $e){
+        return response()->json($e);
+    }
    }
 
    public function store(CreatePostRequest $request){
