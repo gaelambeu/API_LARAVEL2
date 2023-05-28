@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\EditPostRequest;
 use App\Models\Post;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,10 +29,19 @@ class PostController extends Controller
                 'status_message' => 'Le post a été ajouté',
                 'date' => $post
         ]);
-        
+
         } catch (Exception $e) {
             return response() -> json($e);
         }
    }
+
+   public function update(EditPostRequest $request, $id){
+
+        $post = Post::find($id);
+        $post -> titre = $request -> titre;
+        $post -> description = $request -> description;
+        $post->save();
+
+    }
 }
 
