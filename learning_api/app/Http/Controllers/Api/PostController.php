@@ -8,21 +8,39 @@ use App\Http\Requests\EditPostRequest;
 use App\Models\Post;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class PostController extends Controller
 {
-   public function index(){
-    try{
+   public function index(Request $request)
+   {
 
-        return response()->json([
-            'status_code' => 200,
-            'status_message' => 'Le posts ont été récupérés.',
-            'data' => Post::all()
-        ]);
+        try{
+            $query = Post::query();
+            $perPage = 1;
+            $page = $request->input('page', 1);
+            $search = $request -> input ('search');
 
-    } catch(Exception $e){
-        return response()->json($e);
-    }
+
+            if($search){
+                $query->whereRaw("titre LIKE '%".$search."%'");
+            }
+
+            $total = $query->count();
+            $result = $query->offset(($page -1) *$perPage)->limit($perPage)->get();
+
+
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Le posts ont été récupérés.',
+                'current_page' => $page,
+                'last_page' => ceil($total / $perPage),
+                'items' => $result
+            ]);
+
+        } catch(Exception $e){
+            return response()->json($e);
+        }
    }
 
    public function store(CreatePostRequest $request){
