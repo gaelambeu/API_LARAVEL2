@@ -36,7 +36,6 @@ class PostController extends Controller
    }
 
    public function update(EditPostRequest $request, Post $post){
-
         // $post = Post::find($id);
         // dd($post);
         try{
@@ -55,6 +54,21 @@ class PostController extends Controller
             return response()->json($e);
         }
 
+    }
+
+
+    public function delete(Post $post){
+        try{
+            $post->delete();
+
+            return response() -> json([
+            'status_code' => 200,
+            'status_message' => 'Le post a été supprimé',
+            'data' => $post
+            ]);
+        } catch (Exception $e){
+            return response()->json($e);
+        }
     }
 }
 
