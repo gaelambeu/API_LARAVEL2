@@ -26,6 +26,7 @@ Route::delete('posts/{post}', [PostController::class, 'delete']);
 
 // Inscrire un nouvel utilisateur
 Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
