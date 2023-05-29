@@ -38,7 +38,17 @@ class UserController extends Controller
 
     public function login(LogUserRequest $request)
     {
-        if(auth()->attempt($request->only(['email','password']))){
+        if(auth()->attempt($request->only(['email','password'])))
+        {
+            $user = auth()->user();
+            $token = $user->createToken('SECRET_KEY_TOKEN_API_LARAVEL')->plainTextToken;
+
+            return response() -> json([
+                'status_code' => 200,
+                'status_message' => 'Utilisateur connecté',
+                'user'=>$user,
+                'token'=> $token
+            ]);
 
         } else {
                 return response() -> json([
